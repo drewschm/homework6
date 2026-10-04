@@ -1,46 +1,32 @@
-let recent = "";
+let hp = 100;
+let missed = 0;
+const min = 5;
+const max = 20;
 
-document.querySelector("#addition").addEventListener("click", function() {
-    recent = "add"
+document.querySelector("#atk").addEventListener("click", function() {
+    document.querySelector("#battle").innerHTML = battleInit();
 })
 
-document.querySelector("#subtraction").addEventListener("click", function() {
-    recent = "subtraction"
-})
+// document.querySelector("#atk").addEventListener("click", function() {
+//     battleInit()
+// })
 
-document.querySelector("#multiplication").addEventListener("click", function() {
-    recent = "multiplication"
-})
-
-document.querySelector("#division").addEventListener("click", function() {
-    recent = "division"
-})
-document.querySelector("#calculation").addEventListener("click", function() {
-    console.log("clicked");
-})
-
-document.querySelector("#calculation").addEventListener("click", function() {
-    document.querySelector("#answer").innerHTML = mathCalc();
-})
-
-function mathCalc (num1, num2) {
-    if (recent == "add") {
-        const result = Number(document.getElementById("num1").value) + Number(document.getElementById("num2").value);
-        return result;
+function battleInit() {
+    damage = Math.floor(Math.random() * (max - min + 1)) + min;
+    missed = Math.random()
+    if (missed < 0.1){
+        return "The attack missed!"
     }
-    else if (recent == "subtraction") {
-        const result = Number(document.getElementById("num1").value) - Number(document.getElementById("num2").value);
-        return result;
+    else if (missed > 0.1){
+        hp = hp - damage;
+        console.log(hp);
+        if (hp <= 0){
+            return "It fainted!"
+        }
+        else if (hp > 0){
+            return ("The attack hit! Remaining health: " + hp + " Damage dealt: " + damage);
+        }
+        return "The attack hit!"
     }
-    else if (recent == "multiplication") {
-        const result = Number(document.getElementById("num1").value) * Number(document.getElementById("num2").value);
-        return result;
-    }
-    else if (document.getElementById("num2").value === "0") {
-        return "Please don't divide by 0 :]";
-    }
-    else if (recent == "division") {
-        const result = Number(document.getElementById("num1").value) / Number(document.getElementById("num2").value);
-        return result;
-    }
+
 }
